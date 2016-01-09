@@ -37,26 +37,38 @@ button{
     text-shadow: 0 1px 2px #fff;
 }
 .wrapper{
-    width: 100%;
+    width: 1348px;
 }
 .main-content{
-    min-height: 485px;
     width: 100%;
-    height: auto;
+    float:left;
+}
+.inner-center{
+    float: left;
+    margin: 0 auto;
+    width: 100%;
+}
+.header{
+    float: left;
+    margin: 0 auto;
+    width: 100%;
 }
 .footer{
     background-color: #00689c;
     border-top: 1px solid #000;
     clear: both;
     height: 38px;
-    padding: 0 25px;
+    width:100%;
+    float:left;
 }
 .copyright{
-     color: #b1cbd8;
+    color: #b1cbd8;
     float: right;
     font-family: verdana,sans-serif;
     font-size: 11px;
-    padding-top: 12px; 
+    padding-top: 12px;
+    padding-right:15px;
+
 }
 .header-container{
     height: 73px;
@@ -67,7 +79,7 @@ button{
 .header-container .logo{
     float: left;
     padding: 8px 20px;
-    position: absolute;
+    position: relative;
     text-align: center;
     width: 350px;    
 }
@@ -87,8 +99,9 @@ button{
     border-right: 1px solid #0089ce;
     box-shadow: 0 0 4px #444;
     padding: 0 12px;
-    position: absolute;
+    position: relative;
     right: 15px;
+    float:right;
 }
 .header-container .quik-link ul{
     float: right;
@@ -302,9 +315,10 @@ table tbody td{
     border-radius: 8px;
     box-shadow: none;
     color: #666666;
-    max-width: 400px;
     position: relative;
-    top: 115px;
+    margin: 138px auto;
+    width:400px;
+    height:100%;
 }
 .login table{
     width:90%;

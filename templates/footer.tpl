@@ -1,1 +1,1 @@
-<div class="copyright">&copy; 2015 . All rights reserved.</div>
+<div class="copyright">&copy; {$smarty.now|date_format:"%Y"} . All rights reserved.</div>
