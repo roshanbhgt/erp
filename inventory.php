@@ -14,9 +14,6 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
 }elseif(isset($_GET['action']) && $_GET['action'] == 'edit'){
     $id = $_GET['id'];
     $producted = $product->getProduct($id);
-    // echo '<pre>';
-    // print_r($producted);
-    // exit;
     $smarty->assign('product', $producted);
     $smarty->assign('content', $smarty->fetch('edititem.tpl'));
 }elseif(isset($_POST['action']) && $_POST['action'] == 'add'){
@@ -48,8 +45,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     $smarty->assign('products', $product->getSearchProducts($keyword));
     $smarty->assign('content', $smarty->fetch('product.tpl'));    
 }else{
-    
-    $page = 0;
+    $page = 1;
     if(isset($_GET['page'])){
         $page = $_GET['page'];      
     }
@@ -58,6 +54,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     $smarty->assign('page', $page);
     
     $smarty->assign('products', $products);
+    $smarty->assign('pagecount', ceil($product->getProductsCount()/10));
     $smarty->assign('content', $smarty->fetch('product.tpl'));    
 }
 $smarty->assign('action', 'inventory');

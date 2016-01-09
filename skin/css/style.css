@@ -614,21 +614,29 @@ form input, textarea, select{
     right: 37px;
     width: 124px;
 }
-.pagination {
+.pages {
     float:right;
 }
-.pagination ul {
-    border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+ul.pagination {
     display: inline-block;
-    margin-bottom: 0;
-    margin-left: 0;
+    padding: 0;
+    margin: 0;
 }
-.pagination li {
-    display: inline;
-    line-height: 10px;
-    padding: 0 2px;
-    font-size: 13px;
+ul.pagination li {
+    display: inline; margin:0 3px;
+}
+ul.pagination li a {
+    color: black;
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+ul.pagination li a.active {
+    background-color: #006da6;
+    color: white;
+}
+ul.pagination li a:hover:not(.active) {
+    background-color: #ddd;
 }
 .login table td{
     padding: 8px;
