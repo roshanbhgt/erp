@@ -294,4 +294,30 @@ class order{
             return false;
         }
     }
+
+    public function updateChalanItem($items){
+        global $dbObj;
+        if(count($items)){
+            foreach($items as $val){
+               echo  $sql = "UPDATE
+                        ".ORDER_ITEMS."
+                    SET
+                        name = '".$val['name']."',
+                        sku = '".$val['code']."',
+                        qty = '".$val['qty']."',
+                        qty_type = '".$val['qty_type']."', ".
+                    // price = '".$val['price']."',
+                    // " subtotal = '".$val['subtotal']."'
+                    " created_at = NOW()
+                    WHERE
+                        id = '".$val['id']."'
+                    ";
+                $res = $dbObj->query($sql);
+            }
+            $this->addProducts($items);
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

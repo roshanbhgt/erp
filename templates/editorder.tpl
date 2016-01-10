@@ -1,10 +1,10 @@
-<form accept-charset="utf-8" method="post" action="{$FRONTEND}invoicechalan.php">
+<form accept-charset="utf-8" method="post" action="{$FRONTEND}order.php">
 <input type="hidden" name="id" value="{$order.id}" />
 ﻿<div class="dialog">
     <div class="interior">
         <div class="dialog-head">
             <a class="close-dialog" href="javascript:void(0)" style="display: none;">Close</a>
-            <h3>Invoice Chalan {$order.chalan_no}</h3>
+            <h3>Edit Chalan {$order.chalan_no}</h3>
         </div>
             <div class="content" style="padding:20px 13px 10px;">
                 <div id="cart">
@@ -44,23 +44,24 @@
                     {/if}
                     <div style="float:left;padding: 10px 0;">
                         <h3>Items List</h3>
-                        {if count($items)>0}
+                        {if count($orderitems)>0}
                         <table id="items" border="1">
                             <thead>
                                 <th style="width: 200px;border-right:1px solid #FFFFFF;text-align: left;background: #4cc2ff;color: #FFFFFF;">Name</th>
                                 <th style="width: 100px;border-right:1px solid #FFFFFF;background: #4cc2ff;color: #FFFFFF;">Catalog No.</th>
                                 <th style="width: 50px;border-right:1px solid #000;background: #4cc2ff;color: #FFFFFF;">Quantity Type</th>                                
                                 <th style="width: 50px;border-right:1px solid #000;background: #4cc2ff;color: #FFFFFF;">Qty</th>
-                                <th style="width: 70px;border-right:1px solid #FFFFFF;background: #4cc2ff;color: #FFFFFF;">Price in &#8377;</th>                                
-                                <th style="width: 70px;border-right:1px solid #000;background: #4cc2ff;color: #FFFFFF;">Tax</th>
-                                <th style="width: 70px;border-right:1px solid #000;background: #4cc2ff;color: #FFFFFF;">% Discount</th>
-                                <th style="width: 70px;text-align: center;background: #4cc2ff;color: #FFFFFF;">Subtotal in &#8377;</th>
+                                {*<th style="width: 70px;border-right:1px solid #FFFFFF;background: #4cc2ff;color: #FFFFFF;">Price in &#8377;</th>                                *}
+                                {*<th style="width: 70px;border-right:1px solid #000;background: #4cc2ff;color: #FFFFFF;">Tax</th>*}
+                                {*<th style="width: 70px;border-right:1px solid #000;background: #4cc2ff;color: #FFFFFF;">% Discount</th>*}
+                                {*<th style="width: 70px;text-align: center;background: #4cc2ff;color: #FFFFFF;">Subtotal in &#8377;</th>*}
                             </thead>
                             {$i = 1}
-                            {foreach $items as $val}
+                            {foreach $orderitems as $val}
                             <tr>
                                 {$j = $i++}
                                 <td>
+                                    <input type="hidden" id="data_item_{$j}_id" name="data[item][{$j}][id]" value="{$val.id}" />
                                     <input type="text" id="data_item_{$j}_name" name="data[item][{$j}][name]" onkeyup="suggest(this.value, {$j});" onblur="hidesuggest({$j});" value="{$val.name}" autocomplete="off" />
                                     <div class="suggestbox" id="suggestions{$j}" style="display: none;"> 
                                         <div class="suggestlist" id="suggestionsList{$j}"> &nbsp; </div>
@@ -75,62 +76,62 @@
                     </select>
                 </td>
                                 <td><input style="width:70px" type="text" id="data_item_{$j}_qty" name="data[item][{$j}][qty]" value="{$val.qty}" onchange="calculatetotal()"/></td>
-                                <td><input style="width:70px" type="text" id="data_item_{$j}_price" name="data[item][{$j}][price]" value="{$val.price}" onchange="calculatetotal()"/></td>
-                                <td><input type="text" id="data_item_{$j}_tax" name="data[item][{$j}][tax]" value="12.5" onchange="calculatetotal()"/></td>
-                                <td><input type="text" id="data_item_{$j}_disc" name="data[item][{$j}][disc]" value="0" onchange="calculatetotal()"/></td>
-                                <td style="text-align: center">
-                                    <div id="data_item_{$j}_subtotalamt"></div>
-                                    <input type="hidden" id="data_item_{$j}_subtotal" name="data[item][{$j}][subtotal]" value="" />
+                                {*<td><input style="width:70px" type="text" id="data_item_{$j}_price" name="data[item][{$j}][price]" value="{$val.price}" onchange="calculatetotal()"/></td>*}
+                                {*<td><input type="text" id="data_item_{$j}_tax" name="data[item][{$j}][tax]" value="12.5" onchange="calculatetotal()"/></td>*}
+                                {*<td><input type="text" id="data_item_{$j}_disc" name="data[item][{$j}][disc]" value="0" onchange="calculatetotal()"/></td>*}
+                                {*<td style="text-align: center">*}
+                                    {*<div id="data_item_{$j}_subtotalamt"></div>*}
+                                    {*<input type="hidden" id="data_item_{$j}_subtotal" name="data[item][{$j}][subtotal]" value="" />*}
                                 </td>
                             </tr>
                             {/foreach}
-                            <tfoot>
-                                <tr>
-                                    <td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Subtotal</td>
-                                    <td style="width: 125px;text-align: center">
-                                        <div id="data_item_subtotal"></div>
-                                        <input type="hidden" id="data_order_subtotal" name="data[order][subtotal]" value="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Transportation/Loading</td>
-                                    <td style="width: 125px;text-align: center">
-                                        <input style="width:50px;" type="text" id="data_order_shipping" name="data[order][shipping]" value="" onchange="calculatetotal()" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Tax</td>
-                                    <td style="width: 125px;text-align: center">
-                                        <div id="data_item_tax"></div>
-                                        <input type="hidden" id="data_order_tax" name="data[order][tax]" value="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Discount</td>
-                                    <td style="width: 125px;text-align: center">
-                                        <div id="data_item_disc"></div>
-                                        <input type="hidden" id="data_order_disc" name="data[order][disc]" value="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Grand Total</td>
-                                    <td style="width: 125px;text-align: center">
-                                        <div id="data_item_grandtotal"></div>
-                                        <input type="hidden" id="data_order_grandtotal" name="data[order][grandtotal]" value="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Grand Total (Rounded)</td>
-                                    <td style="width: 125px;text-align: center">
-                                        <div id="data_item_grandtotal_rounded"></div>
-                                    </td>
-                                </tr>
-                            </tfoot>
+                            {*<tfoot>*}
+                                {*<tr>*}
+                                    {*<td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Subtotal</td>*}
+                                    {*<td style="width: 125px;text-align: center">*}
+                                        {*<div id="data_item_subtotal"></div>*}
+                                        {*<input type="hidden" id="data_order_subtotal" name="data[order][subtotal]" value="" />*}
+                                    {*</td>*}
+                                {*</tr>*}
+                                {*<tr>*}
+                                    {*<td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Transportation/Loading</td>*}
+                                    {*<td style="width: 125px;text-align: center">*}
+                                        {*<input style="width:50px;" type="text" id="data_order_shipping" name="data[order][shipping]" value="" onchange="calculatetotal()" />*}
+                                    {*</td>*}
+                                {*</tr>*}
+                                {*<tr>*}
+                                    {*<td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Tax</td>*}
+                                    {*<td style="width: 125px;text-align: center">*}
+                                        {*<div id="data_item_tax"></div>*}
+                                        {*<input type="hidden" id="data_order_tax" name="data[order][tax]" value="" />*}
+                                    {*</td>*}
+                                {*</tr>*}
+                                {*<tr>*}
+                                    {*<td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Discount</td>*}
+                                    {*<td style="width: 125px;text-align: center">*}
+                                        {*<div id="data_item_disc"></div>*}
+                                        {*<input type="hidden" id="data_order_disc" name="data[order][disc]" value="" />*}
+                                    {*</td>*}
+                                {*</tr>*}
+                                {*<tr>*}
+                                    {*<td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Grand Total</td>*}
+                                    {*<td style="width: 125px;text-align: center">*}
+                                        {*<div id="data_item_grandtotal"></div>*}
+                                        {*<input type="hidden" id="data_order_grandtotal" name="data[order][grandtotal]" value="" />*}
+                                    {*</td>*}
+                                {*</tr>*}
+                                {*<tr>*}
+                                    {*<td style="width: 100px;border-right:1px solid #000;text-align: right;padding: 10px;" colspan="7">Grand Total (Rounded)</td>*}
+                                    {*<td style="width: 125px;text-align: center">*}
+                                        {*<div id="data_item_grandtotal_rounded"></div>*}
+                                    {*</td>*}
+                                {*</tr>*}
+                            {*</tfoot>*}
                         </table>
                         <div style="text-align: left; padding: 5px 0;">
                             <input type="hidden" id="prodlastid" value="{$j+1}" />
                             <a href="javascript:void(0)" onclick="addmore();">+&nbsp;Add more items</a>
-                            <p><strong>Note:</strong> Prices are inclusive of taxes.</p>
+                            {*<p><strong>Note:</strong> Prices are inclusive of taxes.</p>*}
                         </div>
                         {else}
                             Your cart is empty.
@@ -139,9 +140,9 @@
                 </div>
             </div>
             <div style="text-align: center;padding:25px 0;">
-                <div class="input checkbox"><input type="hidden" id="PlaceOrder" name="data[action]" value="saveorder" /></div>                
-                <button class="button" type="submit" name="action" value="invoicechalan" >Invoice Chalan</button>
-                <button class="button" type="submit" name="action" value="invoiceprintchalan" >Invoice And Print Chalan</button>
+                <div class="input checkbox"><input type="hidden" id="PlaceOrder" name="data[action]" value="updateorder" /></div>
+                <button class="button" type="submit" name="action" value="updatechalan" >Update Chalan</button>
+                <button class="button" type="submit" name="action" value="updateprintchalan" >Update And Print Chalan</button>
             </div>
     </div>
 </div>
@@ -167,13 +168,14 @@
             html +=     '<option value=""></option>';
             html +=     '<option value="shop">Shop</option>';
             html +=     '<option value="godown">Godown</option>';
-            html +=  '</select></td>';
+            html +=  '</select>';
+            html += '</td>';
             html += '<td><input style="width:70px" type="text" id="data_item_'+i+'_qty" name="data[item]['+i+'][qty]" value="1" onchange="calculatetotal()" /></td>';    
-            html += '<td><input type="text" id="data_item_'+i+'_price" name="data[item]['+i+'][price]" onchange="calculatetotal()" /></td>';
-            html += '<td>';
-            html += '<td><input type="text" id="data_item_'+i+'_tax" name="data[item]['+i+'][tax]" value="12.5" onchange="calculatetotal()" /></td>';
-            html += '<td><input type="text" id="data_item_'+i+'_disc" name="data[item]['+i+'][disc]" value="0" onchange="calculatetotal()" /></td>';
-            html += '<td style="text-align: center"><div id="data_item_'+i+'_subtotalamt"></div> <input type="hidden" id="data_item_'+i+'_subtotal" name="data[item]['+i+'][subtotal]" value="" /></td>';
+//            html += '<td><input type="text" id="data_item_'+i+'_price" name="data[item]['+i+'][price]" onchange="calculatetotal()" /></td>';
+//            html += '<td>';
+//            html += '<td><input type="text" id="data_item_'+i+'_tax" name="data[item]['+i+'][tax]" value="12.5" onchange="calculatetotal()" /></td>';
+//            html += '<td><input type="text" id="data_item_'+i+'_disc" name="data[item]['+i+'][disc]" value="0" onchange="calculatetotal()" /></td>';
+//            html += '<td style="text-align: center"><div id="data_item_'+i+'_subtotalamt"></div> <input type="hidden" id="data_item_'+i+'_subtotal" name="data[item]['+i+'][subtotal]" value="" /></td>';
             html += "</tr>";
         $('#items').append(html);
         i++;

@@ -12,6 +12,17 @@ $customer = new customer();
 if(isset($_GET['action']) && $_GET['action'] == 'new'){
     $smarty->assign('customers', $customer->getCustomers());
     $smarty->assign('content', $smarty->fetch('createorder.tpl'));
+}elseif(isset($_GET['action']) && $_GET['action'] == 'edit'){
+    $id = $_GET['id'];
+    $orderdet = $order->getOrder($id);
+    $orderitems = $order->getOrderItems($orderdet['id']);
+    $customer = $order->getCustomer($orderdet['customer_id']);
+    $smarty->assign('order', $orderdet);
+    $smarty->assign('orderitems', $orderitems);
+    $smarty->assign('customer', $customer);
+    $smarty->assign('billing', $order->getCustomerBilling($customer['id']));
+    $smarty->assign('shipping', $order->getCustomerShipping($customer['id']));
+    $smarty->assign('content', $smarty->fetch('editorder.tpl'));
 }elseif(isset($_GET['action']) && $_GET['action'] == 'viewchalan'){
     $id = $_GET['id'];
     $orderdet = $order->getOrder($id);
@@ -35,18 +46,30 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     $smarty->assign('shipping', $order->getCustomerShipping($customer['id']));
     $smarty->assign('content', $smarty->fetch('printorder.tpl'));
     $smarty->display('print.html');
-    exit;
-}elseif(isset($_GET['action']) && $_GET['action'] == 'search'){
+    exit;http://erp.local/order.php?action=printchalan&id=4
+}elseif(isset($_POST['action']) && $_POST['action'] == 'updatechalan'){
+    $data = $_POST['data'];
+    if($order->updateChalanItem($data['item'])){
+        header('Location: '.FRONTEND.'order.php');
+        exit;
+    }
+}elseif(isset($_POST['action']) && $_POST['action'] == 'updateprintchalan'){
+    $data = $_POST['data'];
+    if($order->updateChalanItem($data['item'])){
+        header('Location: '.FRONTEND.'order.php?action=printchalan&id='.$_POST['id']);
+        exit;
+    }
+}elseif(isset($_POST['action']) && $_POST['action'] == 'search'){
     $keyword = $_POST['keywords'];
     $page = 0;
     if(isset($_GET['page'])){
-        $page = $_GET['page'];      
+        $page = $_GET['page'];
     }
     $result = $order->getSearchOrders($keyword,$page, $offset=10);
     $smarty->assign('ordercount', count($result));
     $smarty->assign('page', $page);
     $smarty->assign('orders', $result);
-    $smarty->assign('content', $smarty->fetch('order.tpl'));    
+    $smarty->assign('content', $smarty->fetch('order.tpl'));
 }else{
     $page = 0;
     if(isset($_GET['page'])){

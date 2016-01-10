@@ -47,8 +47,8 @@
         <div class="paging">
             <div style="float: left;">There are <strong>{$ordercount}</strong> results in your database.</div>
             {if $ordercount >10}
-                <div class="pagination">
-                    <ul>
+                <div class="pages">
+                    <ul class="pagination">
                         <li>
                             {if ($page-1) > 0}
                                 <a href="{$FRONTEND}invoice.php?page={$page-1}">‹</a>

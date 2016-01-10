@@ -24,7 +24,7 @@
                                 <td style="text-align: center;" class="jettisonable">{$val.createdat}</td>
                                 <td style="padding-right: 32px;text-align:center" class="list-right">
                                     <a href="{$FRONTEND}order.php?action=viewchalan&id={$val.id}"><img src="{$FRONTEND}skin/images/info.png"  title="View Chalan" /></a> &nbsp;
-                                    <a href="{$FRONTEND}order.php?action=editchalan&id={$val.id}"><img src="{$FRONTEND}skin/images/edit.png"  title="Edit Chalan" /></a> &nbsp;
+                                    <a href="{$FRONTEND}order.php?action=edit&id={$val.id}"><img src="{$FRONTEND}skin/images/edit.png"  title="Edit Chalan" /></a> &nbsp;
                                     <a href="javascript:void(0);" onclick="window.open('{$FRONTEND}order.php?action=printchalan&id={$val.id}')"><img src="{$FRONTEND}skin/images/print.png" title="Print Chalan"/></a>&nbsp;
                                     {if $val.status != 'invoiced'}<a href="{$FRONTEND}invoicechalan.php?action=invoice&id={$val.id}"><img src="{$FRONTEND}skin/images/invoice.png" title="Convert to Invoice"/></a>{/if}
                                 </td>
