@@ -59,8 +59,52 @@ class purchase{
             return false;
         }
         
-    } 
-   
+    }
+
+    public function updatePurchaseBill($data){
+        global $dbObj;
+        $purchaseid = $data['id'];
+        $sql = "UPDATE
+                    ".PURCHASE."
+                SET
+                    admin_id = '".$_SESSION['adminid']."',
+                    chalan = '".$data['chalan']."',
+                    name = '".$data['name']."',
+                    address = '".$data['address']."',
+                    subtotal = '".$data['subtotal']."',
+                    tax = '".$data['tax']."',
+                    shipping = '".$data['shipping']."',
+                    discount = '".$data['discount']."',
+                    total = '".$data['grandtotal']."',
+                    purchaseat = '".$data['prchasedate']."',
+                    createdat = NOW()
+                WHERE
+                    id = '".$purchaseid."'
+                ";
+        if($dbObj->query($sql)){
+            foreach ($data['item'] as $val){
+                $sql = "UPDATE
+                            ".PURCHASE_ITEMS."
+                        SET
+                            purchase_id = '".$purchaseid."',
+                            name = '".$val['name']."',
+                            sku = '".$val['code']."',
+                            qty_type = '".$val['qty_type']."',
+                            qty = '".$val['qty']."',
+                            price = '".$val['price']."',
+                            subtotal = '".$val['subtotal']."',
+                            createdat = NOW()
+                        WHERE
+                            id = '".$val['id']."'
+                        ";
+                $dbObj->query($sql);
+            }
+            $this->addProducts($data['item']);
+        }else{
+            return false;
+        }
+
+    }
     
     public function addProducts($items){        
         global $dbObj;

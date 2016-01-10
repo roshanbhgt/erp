@@ -26,6 +26,7 @@
                                 <td style="text-align: right;" class="jettisonable">{$val.createdat}</td>
                                 <td style="padding-right: 32px;text-align: center" class="list-right">
                                     <a href="{$FRONTEND}purchasebills.php?action=viewpurchase&id={$val.id}"><img src="{$FRONTEND}skin/images/info.png"  title="View Purchase" /></a> &nbsp;
+                                    <a href="{$FRONTEND}purchasebills.php?action=edit&id={$val.id}"><img src="{$FRONTEND}skin/images/edit.png"  title="Edit Purchase" /></a> &nbsp;
                                     <a href="{$FRONTEND}purchasebills.php?action=deletepurchase&id={$val.id}"><img src="{$FRONTEND}skin/images/delete.png" title="Delete Purchase"/></a>
                                 </td>
                             </tr>

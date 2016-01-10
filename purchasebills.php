@@ -11,9 +11,22 @@ $purchase = new purchase();
 
 if(isset($_GET['action']) && $_GET['action'] == 'new'){
     $smarty->assign('content', $smarty->fetch('addpurchase.tpl'));
+}elseif(isset($_GET['action']) && $_GET['action'] == 'edit'){
+    $id = $_GET['id'];
+    $purchasebill = $purchase->getPurchase($id);
+    $purchaseitems = $purchase->getPurchaseItems($id);
+    $smarty->assign('purchase', $purchasebill);
+    $smarty->assign('purchaseitem', $purchaseitems);
+    $smarty->assign('content', $smarty->fetch('editpurchase.tpl'));
 }elseif (isset($_POST['action']) && $_POST['action'] == 'add'){
     $data = $_POST;
     if($purchase->addPurchaseBill($data)){
+        header('Location: '.FRONTEND.'purchasebills.php');
+        exit;
+    }
+}elseif (isset($_POST['action']) && $_POST['action'] == 'update'){
+    $data = $_POST;
+    if($purchase->updatePurchaseBill($data)){
         header('Location: '.FRONTEND.'purchasebills.php');
         exit;
     }
