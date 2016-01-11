@@ -49,13 +49,15 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     $smarty->assign('purchasebills', $purchasebills);
     $smarty->assign('content', $smarty->fetch('purchase.tpl'));    
 }else{
-    $page = 0;
+    $page = 1;
     if(isset($_GET['page'])){
         $page = $_GET['page'];      
     }
     $purchasebills = $purchase->getPurchaseBills($page, $offset=10);    
-    $smarty->assign('page', $page);    
+    $smarty->assign('page', $page);
+    $smarty->assign('pagecount', ceil(count($purchasebills)/$offset));
     $smarty->assign('purchasebills', $purchasebills);
+    $smarty->assign('purchasecount', count($purchasebills));
     $smarty->assign('content', $smarty->fetch('purchase.tpl'));    
 }
 $smarty->assign('action', 'purchase');

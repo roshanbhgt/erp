@@ -100,6 +100,7 @@ class purchase{
                 $dbObj->query($sql);
             }
             $this->addProducts($data['item']);
+            return true;
         }else{
             return false;
         }

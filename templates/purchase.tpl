@@ -43,6 +43,34 @@
         </div>
         <div class="paging">
             <div style="float: left;">There are <strong>{$purchasebills|@count}</strong> results in your database.</div>
+            {if $purchasecount >10}
+                <div class="pages">
+                    <ul class="pagination">
+                        {if ($page-1) > 0}
+                            <li><a href="{$FRONTEND}purchasebills.php?page={$page-1}">«</a></li>
+                        {/if}
+                        {if ($page-2)>0}
+                            <li><a href="{$FRONTEND}purchasebills.php?page={$page-2}">{$page-2}</a></li>
+                        {/if}
+                        {if ($page-1)>0}
+                            <li><a href="{$FRONTEND}purchasebills.php?page={$page-1}">{$page-1}</a></li>
+                        {/if}
+                        <li><a href="javascript:void(0);" class="active">{$page}</a></li>
+                        {if ($page+1)<=($pagecount)}
+                            <li><a href="{$FRONTEND}purchasebills.php?page={$page+1}">{$page+1}</a></li>
+                        {/if}
+                        {if ($page+2)<=($pagecount)}
+                            <li><a href="{$FRONTEND}purchasebills.php?page={$page+2}">{$page+2}</a></li>
+                        {/if}
+                        {if ($page+1)<=($pagecount) && ($page+2)<=($pagecount)}
+                            {if ($page+2) < $pagecount }
+                                <li><a href="{$FRONTEND}purchasebills.php?page={$page+2}">»</a></li>
+                            {/if}
+                        {/if}
+                        <li> of <a href="{$FRONTEND}purchasebills.php?page={$pagecount}">{$pagecount}</a></li>
+                    </ul>
+                </div>
+            {/if}
         </div>
     </div>
 </div>
