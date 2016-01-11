@@ -68,9 +68,6 @@
                         {if ($page+2)<=($pagecount)}
                             <li><a href="{$FRONTEND}inventory.php?page={$page+2}">{$page+2}</a></li>
                         {/if}
-                        {*{if ($page+3)<=($pagecount)}*}
-                            {*<li><a href="{$FRONTEND}inventory.php?page={$page+3}">{$page+3}</a></li>*}
-                        {*{/if}*}
                         {if ($page+1)<=($pagecount) && ($page+2)<=($pagecount)}
                             {if ($page+2) < $pagecount }
                                 <li><a href="{$FRONTEND}inventory.php?page={$page+2}">»</a></li>

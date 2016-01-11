@@ -1,3 +1,4 @@
+<div style="float:left;">
 {if $action == 'dashboard'}
     <h2 style="color: #005985;padding: 5px 15px;">My Dashboard</h2>
 {elseif $action == 'customer'}
@@ -107,3 +108,10 @@
     </div>
 </form>
 {/if}
+</div>
+<div style="float:right;">
+<a class="load-dialog button" href="javascript:void()" onclick="window.history.back();">
+    <span style="font-size: 120%; color: #666; line-height: 16px;" class="icon-plus icon-font" aria-hidden="true">
+    </span>Back
+</a>
+</div>

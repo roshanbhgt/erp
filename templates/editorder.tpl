@@ -188,7 +188,7 @@
 	} else {
 	$.ajax({
             url: "autosuggest.php",
-            data: 'action=suggest&keyword='+keyword+'&id='+i,
+            data: 'action=suggestprod&keyword='+keyword+'&id='+i,
             success: function(msg){
                 if(msg.length >0) {
                         $('#suggestions'+i).fadeIn();

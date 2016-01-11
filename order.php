@@ -49,7 +49,8 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     exit;http://erp.local/order.php?action=printchalan&id=4
 }elseif(isset($_POST['action']) && $_POST['action'] == 'updatechalan'){
     $data = $_POST['data'];
-    if($order->updateChalanItem($data['item'])){
+    $chalanid = $_POST['id'];
+    if($order->updateChalanItem($data['item'],$chalanid)){
         header('Location: '.FRONTEND.'order.php');
         exit;
     }
@@ -61,17 +62,18 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     }
 }elseif(isset($_POST['action']) && $_POST['action'] == 'search'){
     $keyword = $_POST['keywords'];
-    $page = 0;
+    $page = 1;
     if(isset($_GET['page'])){
         $page = $_GET['page'];
     }
     $result = $order->getSearchOrders($keyword,$page, $offset=10);
     $smarty->assign('ordercount', count($result));
     $smarty->assign('page', $page);
+    $smarty->assign('pagecount', ceil(count($result)/$offset));
     $smarty->assign('orders', $result);
     $smarty->assign('content', $smarty->fetch('order.tpl'));
 }else{
-    $page = 0;
+    $page = 1;
     if(isset($_GET['page'])){
         $page = $_GET['page'];      
     }
@@ -79,6 +81,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     $smarty->assign('ordercount', $order->getOrdersCount());
     $smarty->assign('orders', $orders);
     $smarty->assign('page', $page);
+    $smarty->assign('pagecount', ceil($order->getOrdersCount()/$offset));
     $smarty->assign('content', $smarty->fetch('order.tpl'));    
 }
 $smarty->assign('action', 'order');

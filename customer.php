@@ -35,14 +35,14 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     $smarty->assign('customer', $customer->getSearchCustomers($keyword));
     $smarty->assign('content', $smarty->fetch('customerlist.tpl'));    
 }else{
-    $page = 0;
+    $page = 1;
     if(isset($_GET['page'])){
         $page = $_GET['page'];      
     }
     $customers = $customer->getCustomers($page, $offset=10);
     $smarty->assign('customercount', $customer->getCustomersCount());
     $smarty->assign('page', $page);
-    
+    $smarty->assign('pagecount', ceil($customer->getCustomersCount()/$offset));
     $smarty->assign('customer', $customers);
     $smarty->assign('content', $smarty->fetch('customerlist.tpl'));    
 }

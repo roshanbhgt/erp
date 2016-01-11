@@ -37,13 +37,14 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     exit;
 }elseif(isset($_GET['action']) && $_GET['action'] == 'search'){
     $keyword = $_POST['keywords'];
-    $page = 0;
+    $page = 1;
     if(isset($_GET['page'])){
         $page = $_GET['page'];      
     }
     $result = $order->getSearchInvoice($keyword,$page, $offset=10);
     $smarty->assign('ordercount', count($result));
     $smarty->assign('page', $page);
+    $smarty->assign('pagecount', ceil(count($result)/$offset));
     $smarty->assign('orders', $result);
     $smarty->assign('content', $smarty->fetch('invoice.tpl'));    
 }elseif(isset($_GET['action']) && $_GET['action'] == 'deleteinvoice'){
@@ -58,13 +59,14 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
     header('Location: '.FRONTEND.'invoice.php');
     exit;
 }else{
-    $page = 0;
+    $page = 1;
     if(isset($_GET['page'])){
         $page = $_GET['page'];      
     }
     $orders = $order->getOrders($page, $offset=10);
     $smarty->assign('ordercount', $order->getOrdersCount());
     $smarty->assign('page', $page);
+    $smarty->assign('pagecount', ceil($order->getOrdersCount()/$offset));
     $smarty->assign('orders', $orders);
     $smarty->assign('content', $smarty->fetch('invoice.tpl'));    
 }

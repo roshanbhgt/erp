@@ -46,28 +46,28 @@
             {if $customercount >10}
                 <div class="pagination">
                     <ul>
-                        <li>
-                            {if ($page-1) > 0}
-                                <a href="{$FRONTEND}customer.php?page={$page-1}">‹</a>
+                        {if ($page-1) > 0}
+                            <li><a href="{$FRONTEND}customer.php?page={$page-1}">«</a></li>
+                        {/if}
+                        {if ($page-2)>0}
+                            <li><a href="{$FRONTEND}customer.php?page={$page-2}">{$page-2}</a></li>
+                        {/if}
+                        {if ($page-1)>0}
+                            <li><a href="{$FRONTEND}customer.php?page={$page-1}">{$page-1}</a></li>
+                        {/if}
+                        <li><a href="javascript:void(0);" class="active">{$page}</a></li>
+                        {if ($page+1)<=($pagecount)}
+                            <li><a href="{$FRONTEND}customer.php?page={$page+1}">{$page+1}</a></li>
+                        {/if}
+                        {if ($page+2)<=($pagecount)}
+                            <li><a href="{$FRONTEND}customer.php?page={$page+2}">{$page+2}</a></li>
+                        {/if}
+                        {if ($page+1)<=($pagecount) && ($page+2)<=($pagecount)}
+                            {if ($page+2) < $pagecount }
+                                <li><a href="{$FRONTEND}customer.php?page={$page+2}">»</a></li>
                             {/if}
-                        </li>
-                        <li><a href="{$FRONTEND}customer.php?page={$page+1}">{$page+1}</a></li>
-                        {if ($page+2)<=($customercount/10)}
-                        <li><a href="{$FRONTEND}customer.php?page={$page+2}">{$page+2}</a></li>
                         {/if}
-                        {if ($page+3)<=($customercount/10)}
-                        <li><a href="{$FRONTEND}customer.php?page={$page+3}">{$page+3}</a></li>
-                        {/if}
-                        {if ($page+4)<=($customercount/10)}
-                        <li><a href="{$FRONTEND}customer.php?page={$page+4}">{$page+4}</a></li>
-                        {/if}
-                        {if ($page+2)<=($customercount/10) && ($page+3)<=($customercount/10) && ($page+4)<=($customercount/10)}
-                            {if ($page+5) < $customercount/10 }
-                                <li><a href="{$FRONTEND}customer.php?page={$page+5}">›</a></li>
-                            {/if}                        
-                        {/if}
-                        <li>&nbsp; of <a href="{$FRONTEND}customer.php?page={$customercount/10}">{$customercount/10}</a></li>
-
+                        <li> of <a href="{$FRONTEND}customer.php?page={$pagecount}">{$pagecount}</a></li>
                     </ul>
                 </div>
             {/if}
