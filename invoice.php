@@ -64,9 +64,9 @@ if(isset($_GET['action']) && $_GET['action'] == 'new'){
         $page = $_GET['page'];      
     }
     $orders = $order->getOrders($page, $offset=10);
-    $smarty->assign('ordercount', $order->getOrdersCount());
+    $smarty->assign('ordercount', $order->getInvoiceCount());
     $smarty->assign('page', $page);
-    $smarty->assign('pagecount', ceil($order->getOrdersCount()/$offset));
+    $smarty->assign('pagecount', ceil($order->getInvoiceCount()/$offset));
     $smarty->assign('orders', $orders);
     $smarty->assign('content', $smarty->fetch('invoice.tpl'));    
 }

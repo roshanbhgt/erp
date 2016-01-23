@@ -435,5 +435,16 @@ class invoice{
         }
         
     }
+
+    public function getInvoiceCount(){
+        global $dbObj;
+        $sql = "SELECT * FROM ".ORDER_INVOICE." WHERE admin_id = '".$_SESSION['adminid']."' ";
+        $res = $dbObj->query($sql);
+        if($res){
+            return $dbObj->num_rows($res);
+        }else{
+            return 0;
+        }
+    }
     
 }
