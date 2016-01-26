@@ -16,7 +16,7 @@ class product{
     public function getProducts($page=null,$offset=null){
         global $dbObj;
         $sql = "SELECT * FROM ".PRODUCT." ";
-         if($page>0){
+        if($page>0){
             $start = ($page-1) * $offset; 
             $sql .= " LIMIT $start, $offset ";
         }/* else{
@@ -132,5 +132,16 @@ class product{
         }else{
             return 0;
         }
+    }
+
+    public function deleteProduct($id){
+        global $dbObj;
+        $sql = "DELETE FROM ".PRODUCT." WHERE id = '".$id."' ";
+        if($dbObj->query($sql)){
+            return true;
+        }else{
+            return false;
+        }
+        return true;
     }
 }

@@ -29,7 +29,8 @@
                                 <td style="text-align: center;" class="jettisonable">&#8377;&nbsp;{$val.price}</td>
                                 <td style="text-align: center;" class="jettisonable">{$val.createdat}</td>
                                 <td style="text-align: right;padding-right: 10px;" class="jettisonable">
-                                    <a href="{$FRONTEND}inventory.php?action=edit&id={$val.id}"><img src="{$FRONTEND}skin/images/edit.png" /></a>
+                                    <a href="{$FRONTEND}inventory.php?action=edit&id={$val.id}"><img src="{$FRONTEND}skin/images/edit.png" /></a>&nbsp;
+                                    <a href="{$FRONTEND}inventory.php?action=delete&id={$val.id}"><img src="{$FRONTEND}skin/images/delete.png" /></a>
                                 </td>
                             </tr>
                         {/foreach}

@@ -5,7 +5,10 @@
 </head>
 <body>
     <div class="wrapper">
-      <div class="main-content">        	
+      <div class="main-content">
+          {if $message != ''}
+                <div id="mesage">{$message}</div>
+          {/if}
           {include file='empty.tpl'}
       </div>
     </div>

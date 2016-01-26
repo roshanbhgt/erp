@@ -34,5 +34,7 @@ $smarty->cache_lifetime = 30;
 
 $smarty->assign('FRONTEND', FRONTEND);
 $smarty->assign('session', $_SESSION);
+$smarty->assign('message', $_SESSION['message']);
+$_SESSION['message'] = '';
 
 ?>

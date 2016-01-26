@@ -24,7 +24,7 @@
 {elseif $action == 'inventory' }
 <form accept-charset="utf-8" method="post" action="{$FRONTEND}inventory.php?action=search">
     <div class="input text">
-        <input type="text" autocomplete="off" class="live-search autofocus" placeholder="Search Products by Name or SKU" name="keywords" />
+        <input type="text" autocomplete="off" class="live-search autofocus" placeholder="Search Products by Name or Catalog No" name="keywords" />
     </div>
 </form>
 <a class="load-dialog button" href="{$FRONTEND}inventory.php?action=new">
